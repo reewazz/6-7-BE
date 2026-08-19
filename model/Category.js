@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 const { Schema } = mongoose;
 
-const blogSchema = new Schema({
+const categorySchema = new Schema({
   title: {
     type: String,
     required : true
@@ -13,6 +13,6 @@ const blogSchema = new Schema({
  
 });
 
-const Blog = mongoose.model('Blog', blogSchema);
+const Category = mongoose.model('Category', categorySchema);
 
-export default Blog
+export default Category
