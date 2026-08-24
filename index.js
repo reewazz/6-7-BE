@@ -4,6 +4,9 @@ import Blog from './model/Blog.js';
 import dotenv from "dotenv"
 import cors from "cors"
 import Category from './model/Category.js';
+import { createBlog, deleteBlog, getBlogById, getBlogFunction, updateBlog } from './controllers/blogControllers.js';
+import { connectDB } from './controllers/db.js';
+import blogRoutes from "./routes/blogRoutes.js"
 
 
 const app = express()
@@ -937,18 +940,11 @@ const products = [
 }]
 
 
-const connectDB =  async()=> {
-try{
-    console.log("connecting to database ......")
-  const response  = await mongoose.connect(process.env.DB_URL)
-  console.log("connection successful!!")
-}catch(err){
-  console.error(err)
-}
-}
 
 connectDB()
 
+
+app.use("/blog",blogRoutes)
 
 app.get('/', (req,res) => {
   res.send('Hello World')
@@ -968,53 +964,7 @@ app.get("/movie/:title",(req,res)=>{
     res.send(`This is api of course ${req.params.title} `)
 })
 
-app.post("/blog/create",async(req,res)=> {
-  console.log(req.body,"body coming from request")
-  const newBlog = await Blog.create(req.body)
-  res.json(newBlog)
-})
 
-
-
-
-
-
-
-app.get("/blog/getAll",async(req,res)=>{
-  const allBlogs = await Blog.find()
-  res.json(allBlogs)
-})
-
-
-app.get("/blog/getById/:id",async(req,res)=>{
-  console.log(req.params.id)
-
-  const singleBlog = await Blog.findById(req.params.id)
-  res.json(singleBlog)
-})
-
-
-app.delete("/blog/delete/:id",async (req,res)=>{
-
-  const existingBlog = await Blog.findById(req.params.id)
-
-  if (!existingBlog) {
-    return res.status(404).json ({
-      message : "Blog not found for this id"
-    })
-  }
-
-  const blog = await Blog.findByIdAndDelete(req.params.id)
-  res.status(200).json({
-    message : "Blog deleted succesfully"
-  })
-})
-
-
-app.put("/blog/update/:id",async(req,res)=>{
-  const updatedBlog = await Blog.findByIdAndUpdate(req.params.id,req.body,{new:true})
-  res.json(updatedBlog)
-})
 
 
 

@@ -11,6 +11,7 @@ const blogSchema = new Schema({
   status: Boolean,
   category: String,
   likes : Number,
+  image : String
  
 });
 
