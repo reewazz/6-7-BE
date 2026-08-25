@@ -7,6 +7,7 @@ import Category from './model/Category.js';
 import { createBlog, deleteBlog, getBlogById, getBlogFunction, updateBlog } from './controllers/blogControllers.js';
 import { connectDB } from './controllers/db.js';
 import blogRoutes from "./routes/blogRoutes.js"
+import userRoutes from "./routes/userRoutes.js"
 
 
 const app = express()
@@ -945,6 +946,7 @@ connectDB()
 
 
 app.use("/blog",blogRoutes)
+app.use ("/user",userRoutes)
 
 app.get('/', (req,res) => {
   res.send('Hello World')

@@ -8,6 +8,7 @@ export const getBlogFunction = async(req,res)=>{
 
 export const createBlog = async(req,res)=> {
   console.log(req.body,"body coming from request")
+  // const newBlog = await Blog.create(req.body)
   const newBlog = await Blog.create(req.body)
   res.json(newBlog)
 }
