@@ -6,10 +6,16 @@ const blogSchema = new Schema({
     type: String,
     required : true
   }, // String is shorthand for {type: String}
-  author: String,
+  author: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref : "User"
+  },
   description: String,
   status: Boolean,
-  category: String,
+  category: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref : "Category"
+  }, 
   likes : Number,
   image : String
  

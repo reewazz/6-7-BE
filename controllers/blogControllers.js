@@ -1,7 +1,9 @@
 import Blog from "../model/Blog.js"
+import User from "../model/User.js"
+import Category from  "../model/Category.js"
 
 export const getBlogFunction = async(req,res)=>{
-  const allBlogs = await Blog.find()
+  const allBlogs = await Blog.find().populate("category","-status").populate("author", "-password")
   res.json(allBlogs)
 }
 
@@ -9,7 +11,27 @@ export const getBlogFunction = async(req,res)=>{
 export const createBlog = async(req,res)=> {
   console.log(req.body,"body coming from request")
   // const newBlog = await Blog.create(req.body)
+
+
+
+  const isExistingUser = await User.findById(req.body.author)
+  if (!isExistingUser) {
+   return res.status(500).json({
+      message: "Author not found of this id"
+    })
+  }
+
+  const isExistingCategory = await Category.findById(req.body.category)
+  if (!isExistingCategory) {
+   return res.status(500).json({
+      message: "Category not found of this id"
+    })
+  }
+
   const newBlog = await Blog.create(req.body)
+
+
+
   res.json(newBlog)
 }
 

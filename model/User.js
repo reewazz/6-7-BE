@@ -12,7 +12,8 @@ const userSchema = new Schema({
     unique :true
   },
   password: String,
-  image : String
+  image : String,
+
  
  
 });
