@@ -76,5 +76,10 @@ export const login = async (req,res) => {
 
 }
 
+export const getAllUsers = async(req,res)=>{
+    const allUsers = await User.find().select("-password")
+    res.json(allUsers)
+}
+
 
 // hello ->cceuchgwei327->diuwedibwe->eiwhbfybwef

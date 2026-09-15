@@ -13,7 +13,7 @@ const blogSchema = new Schema({
   description: String,
   status: Boolean,
   category: {
-    type: mongoose.Schema.Types.ObjectId,
+    type: mongoose.Schema.Types.ObjectId, 
     ref : "Category"
   }, 
   likes : Number,

@@ -8,6 +8,10 @@ import { createBlog, deleteBlog, getBlogById, getBlogFunction, updateBlog } from
 import { connectDB } from './controllers/db.js';
 import blogRoutes from "./routes/blogRoutes.js"
 import userRoutes from "./routes/userRoutes.js"
+import multer from 'multer';
+import path from 'path';
+import { fileURLToPath } from 'url';
+import { upload } from './controllers/file.js';
 
 
 const app = express()
@@ -17,6 +21,16 @@ app.use(cors())
 
 
 dotenv.config()
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
+
+
+// const upload = multer({ dest: 'uploads/' })
+
+
 
 const products = [
 {
@@ -1012,6 +1026,14 @@ console.log(filteredProduct)
   res.json(filteredProduct)
 })
 
+
+app.post('/profile', upload.single('photo'), (req, res )=> {
+    console.log(req.file,"my file")
+    console.log(req.body,"test")
+    res.json({
+      message :"uploaded"
+    })
+})
 
 
 app.listen(8000,() => {

@@ -13,8 +13,14 @@ const userSchema = new Schema({
   },
   password: String,
   image : String,
+  
+role: {
+  type: String,
+  enum: ["USER", "ADMIN"]
+}
 
- 
+
+
  
 });
 
